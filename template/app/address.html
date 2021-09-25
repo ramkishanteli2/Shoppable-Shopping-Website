@@ -1,0 +1,33 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block title%}
+Address
+{%endblock title%}
+{%block main%}
+<div class="row p-5">
+    <div id="list-example" class="list-group col-2 ms-5 border-end">
+        <h4 class="text-dark fw-bold" style="text-align: center;">{{request.user.first_name}} {{request.user.last_name}}</h4>
+        <a class="list-group-item list-group-item-action rounded text-body" style="text-align: center;" href="{%url 'profile'%}">Profile</a>
+        <a class="list-group-item list-group-item-action bg-primary rounded text-white" style="text-align: center;" href="{%url 'address'%}">Address</a>
+    </div>
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example col-8 m-auto" tabindex="0">
+       <div class="row">
+           {% if addresses %}
+           {% for address in addresses %}
+           <div class="col-4 border rounded p-3 me-3 mb-2" style="line-height: 4vh;">
+                <h1>Address {{forloop.counter}}</h1>
+                <span>Name: {{address.name}}</span><br>
+                <span>H.No.: {{address.hno}}</span><br>
+                <span>Locality: {{address.locality}}</span><br>
+                <span>Street: {{address.street}}</span><br>
+                <span>State: {{address.city}}</span><br>
+                <span>State: {{address.state}}</span><br>
+                <span>Pincode: {{address.pincode}}</span>
+           </div>
+           {% endfor %}
+           {% endif %}
+       </div>
+    </div>
+</div>
+
+{%endblock main%}

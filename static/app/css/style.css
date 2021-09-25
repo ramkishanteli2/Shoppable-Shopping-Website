@@ -1,0 +1,43 @@
+.owl-carousel .item{
+ /* border: 1px solid black; */
+ font-size: 24px;
+ text-align: center;
+ margin-top: 20px;;
+}
+
+.owl-next{
+ float:right;
+}
+.owl-prev{
+ float:left;
+}
+.owl-prev span{
+ font-size: 24px;
+ font-weight: bold;
+}
+.owl-next span{
+ font-size: 24px;
+ font-weight: bold;
+}
+#payment-option div{
+    background-image: url("{%static 'app/images/payment/bj.jpg' %}");
+    background-size: contain;
+    height: 20vh;
+}
+.payment1{
+    background-image: url("{%static 'app/images/payment/bj.jpg' %}");
+}
+.payment2{
+    background-image: url("{%static 'app/images/payment/upi.jpg' %}");
+}
+.payment3{
+    background-image: url("{%static 'app/images/payment/nb.jpg' %}");
+}
+.payment4{
+    background-image: url("{%static 'app/images/payment/cc.jpg' %}");
+}
+#myname{
+    font-size: larger;
+    font-weight: bold;
+    color: yellow;
+}

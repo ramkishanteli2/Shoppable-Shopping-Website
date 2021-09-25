@@ -1,0 +1,121 @@
+{%extends 'app/base.html' %}
+{% load static%}
+{%block title %}
+Home
+{%endblock title %}
+{%block mycss%}
+    <style>
+      .owl-carousel .item{
+      /* border: 1px solid black; */
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;;
+      }
+
+      .owl-next{
+      float:right;
+      }
+      .owl-prev{
+      float:left;
+      }
+      .owl-prev span{
+      font-size: 24px;
+      font-weight: bold;
+      }
+      .owl-next span{
+      font-size: 24px;
+      font-weight: bold;
+      }
+      #payment-option div{
+          background-size: contain;
+          height: 20vh;
+      }
+      .payment1{
+          background-image: url("{%static 'app/images/payment/bj.jpg' %}");
+      }
+      .payment2{
+          background-image: url("{%static 'app/images/payment/upi.jpg' %}");
+      }
+      .payment3{
+          background-image: url("{%static 'app/images/payment/nb.jpg' %}");
+      }
+      .payment4{
+          background-image: url("{%static 'app/images/payment/cc.jpg' %}");
+      }
+      #myname{
+          font-size: larger;
+          font-weight: bold;
+          color: yellow;
+      }
+    </style>
+{%endblock mycss%}
+{%block main%}
+    
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <img src="{% static 'app/images/banner/b1.jpg'%}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'app/images/banner/b2.jpg'%}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'app/images/banner/b3.jpg'%}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'app/images/banner/b4.jpg'%}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item active">
+        <img src="{% static 'app/images/banner/b7.jpg'%}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="contanier bg-danger align-middle p-3 m-auto" style="text-align: center; width: 80%;">
+        <h1 class="text-white">SALE IS LIVE NOW</h1>
+        <p class="text-white">
+            5% Instant Discount on Axis Bank Credit and Debit Card <br>
+            Term and Condition Applied (For details visit Bank's official Website)
+        </p>
+  </div>
+  <div class="m-3">
+    <h2>Shopabble Top Wears</h2>
+    <!-- Slider 1 -->
+    <div class="owl-carousel" id="slider1">
+     {%for tp in topwears %}
+     <a href="{%url 'productdetails' tp.id %}" class="btn"><div class="item"><img src="{{tp.product_image.url}}" alt="" height="200px"><span class="fw-bold">{{tp.title}}</span><br><span class="fs-5">Rs. {{tp.discount_price}}</span></div></a>
+     {%endfor%}
+    </div>
+   </div>
+  <div class="row p-3 m-3" id="payment-option" >
+      <div class="col-3 border border-1 rounded payment1"></div>
+      <div class="col-3 border border-1 rounded payment2"></div>
+      <div class="col-3 border border-1 rounded payment3"></div>
+      <div class="col-3 border border-1 rounded payment4"></div>
+  </div>
+  <div class="m-3">
+    <h2>Shopabble Bottom Wears</h2>
+    <!-- Slider 1 -->
+    <div class="owl-carousel" id="slider2">
+     {%for bt in bottomwears %}
+     <a href="{%url 'productdetails' bt.id %}" class="btn"><div class="item"><img src="{{bt.product_image.url}}" alt="" height="200px"><span class="fw-bold">{{bt.title}}</span><br><span class="fs-5">Rs. {{bt.discount_price}}</span></div></a>
+     {%endfor%}
+    </div>
+   </div>
+   <div class="m-3">
+    <h2>Shopabble Mobile Phones</h2>
+    <!-- Slider 1 -->
+    <div class="owl-carousel" id="slider3">
+     {%for mob in mobiles %}
+     <a href="{%url 'productdetails' mob.id %}" class="btn"><div class="item"><img src="{{mob.product_image.url}}" alt="" height="200px"><span class="fw-bold">{{mob.title}}</span><br><span class="fs-5">Rs. {{mob.discount_price}}</span></div></a>
+     {%endfor%}
+    </div>
+   </div>
+{%endblock main%}

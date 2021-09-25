@@ -1,0 +1,58 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block title%}
+Orders
+{%endblock title%}
+{%block main%}
+<div class="row p-5">
+    <div id="list-example" class="list-group col-2 ms-5 border-end">
+        <h4 class="text-dark fw-bold" style="text-align: center;">{{request.user.first_name}} {{request.user.last_name}}</h4>
+        <a class="list-group-item list-group-item-action bg-primary rounded text-white" style="text-align: center;" href="{%url 'changepassword'%}">Orders</a>
+    </div>
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example col-8 m-auto" tabindex="0">
+        <div class="rows text-secondary fw-bold">
+            {%for order,price in orders%}
+            <div class="card mb-3">
+                <div class="card-header">
+                  {{order.product.title}}
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                      <div class="col-6">
+                          <img src="{{order.product.product_image.url}}" alt="" width="50%" height="80%">
+                      </div>
+                      <div class="col-6">
+                        <p class="text-secondary">
+                            <span class="text-dark fw-bold">Discription: </span> {{order.product.description}}
+                         </p>
+                          <p class="text-dark fw-bold">
+                                Quantity: {{order.quantity}}
+                          </p>
+                          <p class="text-dark fw-bold">
+                                Amount: {{price}}
+                          </p>
+
+                      </div>
+                  </div>
+                    <h5 class="text-center text-dark">Status: {{order.status}}</h5>
+                  <div class="progress" style="height: 4vh;">
+                    {% if order.status == 'Accepted' %}
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    {% elif order.status == 'Shipped'%}
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+                    {% elif order.status == 'On the way'%}
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">75%</div>
+                    {% elif order.status == 'Delivered'%}
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+                    {% else %}
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+                    {%endif%}
+                  </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+
+{%endblock main%}

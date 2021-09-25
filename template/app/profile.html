@@ -1,0 +1,79 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block title%}
+Profile
+{%endblock title%}
+{%block main%}
+{% if request.user.is_authenticated %}
+<div class="row p-5">
+    <div id="list-example" class="list-group col-2 ms-5 border-end">
+        <h4 class="text-dark fw-bold" style="text-align: center;">{{request.user.first_name}} {{request.user.last_name}}</h4>
+        <a class="list-group-item list-group-item-action bg-primary rounded text-white" style="text-align: center;" href="{%url 'profile'%}">Profile</a>
+        <a class="list-group-item list-group-item-action rounded text-body" style="text-align: center;" href="{%url 'address'%}">Address</a>
+    </div>
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example col-8 m-auto" tabindex="0">
+        <form action="{% url 'profile' %}" method="POST">
+            {%csrf_token%}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="locality" class="form-label">H.No.</label>
+                <input type="text" class="form-control" id="locality" aria-describedby="emailHelp" name="hno">
+            </div>
+            <div class="mb-3">
+                <label for="locality" class="form-label">Locality</label>
+                <input type="text" class="form-control" id="locality" aria-describedby="emailHelp" name="locality">
+            </div>
+            <div class="mb-3">
+                <label for="street" class="form-label">Street</label>
+                <input type="text" class="form-control" id="street" aria-describedby="emailHelp" name="street">
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" aria-describedby="emailHelp" required name="city">
+            </div>
+            <div class="mb-3">
+                <label for="street" class="form-label">State</label>
+                <select class="form-select w-auto" aria-label="Default select example" name="state">
+                    <option value="" selected>Select State</option>
+                    {%for state in states%}
+                    <option value="{{state}}">{{state}}</option>
+                    {%endfor%}
+                  </select>
+                <!-- <label for="state" class="form-label">State</label>
+                <select name="state" id="state">
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                </select> -->
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label">Pincode</label>
+                <input style="width: 20%;" type="number" class="form-control" id="pincode" aria-describedby="emailHelp" name="pincode">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {% if messages %}
+            {%for message in messages%}
+                <small {% if message.tags%} class="text-white bg-{{message.tags}} align-middle w-100 p-2" {%endif%} style="text-align: center;">{{message}}</small>
+            {%endfor%}
+            {%endif%}
+          </form>
+    </div>
+</div>
+{% else %}
+<div class="container">
+  <div class="row my-3">
+      <div class="col-sm-6 offset-sm-3">
+          <p>
+            <h1 class="text-bold">Oops! you are not logged in.</h1> <br><br><br>
+            <img src="{% static 'app/images/error.gif'%}" alt="" height="200" width="200">  
+          </p>
+      </div>
+  </div>
+</div>
+{% endif %}
+
+{%endblock main%}

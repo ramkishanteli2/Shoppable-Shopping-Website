@@ -1,0 +1,88 @@
+{%extends 'app/base.html' %}
+
+{%load static%}
+
+{%block title%}
+Cart
+{%endblock title%}
+
+{%block main%}
+<h1 style="text-align: center;" class="fw-bold m-5">Shopping Cart</h1>
+
+    {% if messages %}
+      {%for message in messages%}
+      <div class="row m-auto" style="width: 90vw;">
+        <div class="col-8 border rounded bg-success">
+        <h4 class="text-white align-middle w-100 p-2" style="text-align: center;">{{message}}</h4>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    {%endfor%}
+    {%endif%}
+
+<div class="row m-auto" style="width: 90vw;">
+    <div class="col-8 p-5 border rounded">
+        <h3>Cart</h3>
+        {% for product in products %}
+        <div class="row mb-3">
+            <div class="col-4">
+                <img class="border rounded mt-5 " src="{{product.product.product_image.url}}" alt="" height="70%" width="70%">
+            </div>
+            <div class="col-8">
+                <h5>Product {{product.product.id}}</h5>
+                <p style="font-size: .9rem;">
+                   Description: {{product.product.description}}
+                </p>
+                <span class="fs-6">Quntity: </span> 
+                <form action="{% url 'alter_quantity' %}" id="alter_quantity_decrease" class="d-inline">
+                    <input type="number" hidden value="{{product.product.id}}" name="product_id">
+                    <input type="text" hidden value="decrease" name="action_">
+                    <input type="submit" class="btn btn-dark text-white" value="-">
+                </form>
+                &nbsp; &nbsp;{{product.quantity}}&nbsp; &nbsp;
+                <form action="{% url 'alter_quantity' %}" id="alter_quantity_increase" class="d-inline">
+                    <input type="number" hidden value="{{product.product.id}}" name="product_id">
+                    <input type="text" hidden value="increase" name="action_">
+                    <input type="submit" class="btn btn-dark text-white" value="+">
+                </form>
+                <br><br><br>
+                <form action="{% url 'remove_cart_item' %}">
+                    <input type="text" name="product_id" hidden value="{{product.id}}">
+                    <input type="submit" class="btn btn-secondary text-white fs-6" value="Remove item">
+                </form>
+                <span class="text-dark float-end fw-bold">Rs. {{product.product.discount_price}}</span>
+            </div>
+
+            <hr class="h-5 bg-secondary mt-4">
+        </div>
+        {% empty %}
+            <div class="row d-flex justify-content-center">
+                <img src="{% static 'app/images/emptycart.png' %}" alt="" class="w-50 h-50">
+            </div>
+        {%endfor%}
+    </div>
+    <div class="col-1"></div>
+    <div class="col-3 border rounded">
+        <div class="card" style="width: 18rem;border: none;">
+            <div class="card-body">
+              <h4 class="card-title">The Total Amount of</h4>
+              <p class="card-text d-inline-block">Amount</p>
+              <p class="card-text d-inline-block float-end">Rs. {{product_amount}}</p><br>
+              <p class="card-text d-inline-block">Shipping</p>
+              <p class="card-text d-inline-block float-end">Rs. {{shipping_charge}}</p>
+              <hr class="h-5 bg-secondary mt-4">
+              <p class="card-text d-inline-block fw-bold">Total <span class="fw-normal">(including VAT)</span></p>
+              <p class="card-text d-inline-block float-end fw-bold">Rs. {{total_amount}}</p>
+              <a href="{% url 'checkout' %}" class="btn btn-primary w-100">Place Order</a>
+            </div>
+          </div>
+    </div>
+</div>
+<div class="row my-3" style="width: 90vw;margin-left: 4.5vw;">
+    <div class="col-8 p-3 border rounded">
+        <h5>We accept</h5>
+        <img src="{%static 'app/images/payment.png'%}" alt="">
+    </div>
+    
+</div>
+{%endblock main%}

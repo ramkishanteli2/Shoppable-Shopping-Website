@@ -1,0 +1,52 @@
+{%extends 'app/base.html'%}
+
+{%block title%}
+Top Wear
+{%endblock title%}
+
+{%block main%}
+<div class="container m-5">
+    <div class="row">
+        <div class="col-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action" id="list-home-list" href="{%url 'topwear' %}" role="tab" aria-controls="list-mobiles">Shirts</a>
+            <form class="list-group-item list-group-item-action" id="list-settings-list" method="GET" action="{%url 'topwear' %}" role="tab" aria-controls="list-apple">
+                <label for="customRange3" class="form-label">From: Rs.<span id="minvalue"></span></label>
+                <input type="range" class="form-range" min="100" max="1000" step="50" id="customRange3" name="min-value" onclick="updateValue()">
+                <label for="customRange4" class="form-label">To: Rs.<span id="maxvalue"></span></label>
+                <input type="range" class="form-range" min="100" max="1000" step="50" id="customRange4" name="max-value" onclick="updateValue()">
+                <input type="submit" value="Search" class="btn btn-warning">
+            </form>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-mobiles" role="tabpanel" aria-labelledby="list-home-list">
+                {%for b in product %}
+                <a href="{%url 'productdetails' b.id %}" class="btn">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{b.product_image.url}}" alt="" height="200px">
+                    <div class="card-body text-center">
+                      <span class="fw-bold">{{b.title}}</span><br>
+                      <span class="fs-5">Rs. {{b.discount_price}}</span>
+                    </div>
+                  </div>
+                </a>
+                {%endfor%}
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{%endblock main%}
+{%block customJavaScript%}
+<script>
+    function updateValue()
+    {
+        var x = document.getElementById("customRange3").value;
+        document.getElementById("minvalue").innerHTML = x;
+        x  = document.getElementById("customRange4").value;
+        document.getElementById("maxvalue").innerHTML = x;
+    }
+</script>
+{%endblock customJavaScript%}

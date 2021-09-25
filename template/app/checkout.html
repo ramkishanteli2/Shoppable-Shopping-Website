@@ -1,0 +1,101 @@
+{%extends 'app/base.html' %}
+
+{%block title%}
+Check Out
+{%endblock title%}
+
+{%block main%}
+<div class="container">
+    <div class="row  m-3">
+        <div class="col-sm-6">
+            <h4 class="text-bold">Order Summary</h4>
+            <hr class="bg-secondary" style="height: 1vh;">
+            {%for product in products%}
+                <div class="card my-3 w-100">
+                    <div class="card-header">
+                    {{product.product.title}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Quantity: {{product.quantity}}</p>
+                    <p class="card-text text-bold">Price: Rs. {{product.product.discount_price}}</p>
+                    </div>
+                </div>
+            {%endfor%}
+            <div class="card my-3 w-100">
+                <div class="card-body">
+                    <p class="card-text"><span class="fw-bold">Total Ammont: <br>Products Amount: Rs. {{product_amount}} + Shipping Charge: Rs. {{ shipping_charge}} = Rs. {{total_amount}}</span></p>
+                </div>
+            </div>
+            <div class="card my-3 w-100">
+                <div class="card-body">
+                    <p class="card-text"><span class="fw-bold">Terms and Conditions: </span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur nesciunt consequatur quia consectetur possimus. Saepe dignissimos at nostrum libero beatae illum. Iusto officiis incidunt temporibus! Quod expedita veniam placeat porro?</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h4 class="text-bold">Select Shipping Address</h4>
+            <hr class="bg-secondary" style="height: 1vh;">
+            <form action="/paymentdone/" id="paymentdone">
+                {%for address in addresses %}
+                <div class="card my-3">
+                    <div class="card-header">
+                    {{address.name}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text d-inline">{% if address.hno%}{{address.hno}},{%endif%}</p>
+                        <p class="card-text d-inline">{% if address.locality%}{{address.locality}},{%endif%}</p>
+                        <p class="card-text d-inline">{% if address.street%}{{address.street}},{%endif%}</p>
+                        <p class="card-text d-inline">{{address.city}},</p>
+                        <p class="card-text d-inline">{{address.state}},</p>
+                        <p class="card-text d-inline">{{address.pincode}}</p>
+                    </div>
+                </div>
+                <input type="radio" name="address" id="{{address.id}}"><label for="{address.id}}" class="text-bold fw-bold"> &nbsp; Address {{forloop.counter}}</label>
+                {%endfor%}
+                <br><br>
+                <!-- Set up a container element for the button -->
+                <div id="paypal-button-container"></div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock main%}
+{%block paypalintegration%}
+ <!-- Include the PayPal JavaScript SDK -->
+ <script src="https://www.paypal.com/sdk/js?client-id=AQ5Bl30h9JidiY8avnH99JviIzjsT0KD4u-xDg3VNomValQXPBGxun0TpnQJoLEO7btWSYtJbnVxbazq&currency=USD"></script>
+
+ <script>
+     // Render the PayPal button into #paypal-button-container
+     paypal.Buttons({
+
+         // Set up the transaction
+         createOrder: function(data, actions) {
+             return actions.order.create({
+                 purchase_units: [{
+                     amount: {
+                         value: '{{total_amount}}'
+                     }
+                 }]
+             });
+         },
+
+         // Finalize the transaction
+         onApprove: function(data, actions) {
+             return actions.order.capture().then(function(orderData) {
+                 // Successful capture! For demo purposes:
+                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                 var transaction = orderData.purchase_units[0].payments.captures[0];
+                 alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                 document.getElementById("paymentdone").submit();
+                 // Replace the above to show a success message within this page, e.g.
+                 // const element = document.getElementById('paypal-button-container');
+                 // element.innerHTML = '';
+                 // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                 // Or go to another URL:  actions.redirect('thank_you.html');
+             });
+         }
+
+
+     }).render('#paypal-button-container');
+ </script>
+{%endblock paypalintegration%}

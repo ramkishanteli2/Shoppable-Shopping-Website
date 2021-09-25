@@ -1,0 +1,48 @@
+1.
+MultiValueDictKeyError : This is came when we are try to access a key form dictionary and that is not present so we can use get method of the dictionery when key will not present is will return none
+
+2.
+Difference between is_valid and is_valid()
+
+3. Change Default Authentecation System
+['django.contrib.auth.backends.ModelBackend']
+
+You should write a custom authentication backend. Something like this will work:
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
+
+class EmailBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        UserModel = get_user_model()
+        try:
+            user = UserModel.objects.get(email=username)
+        except UserModel.DoesNotExist:
+            return None
+        else:
+            if user.check_password(password):
+                return user
+        return None
+Then, set that backend as your auth backend in your settings:
+
+AUTHENTICATION_BACKENDS = ['path.to.auth.module.EmailBackend']
+
+
+4.
+
+PasswordChangeForm
+Used for changing password of user by entering his old password
+
+5.
+
+User Password Reset Steps : -
+    Taking email as input reset_password
+    Link will be set to your email reset_password_done
+    Entering new password reset_password_confirm
+    Finally success message reset_password_complete
+6. 
+
+Paypal Payment Integration
+
+Demo Code Link : https://developer.paypal.com/demo/checkout/#/pattern/client
+Developer Account Link: https://developer.paypal.com/developer/accounts
