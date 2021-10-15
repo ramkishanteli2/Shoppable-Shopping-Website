@@ -67,18 +67,26 @@ def mobile(request,brand_name=None):
         brand_name = Product.objects.filter(category="M").filter(discount_price__lt=14000)
     elif brand_name == 'above':
         brand_name = Product.objects.filter(category="M").filter(discount_price__gte=14000)
-
-    return render(request,'app/mobile.html',{'brand_name': brand_name,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+    if request.user.is_authenticated:
+        return render(request,'app/mobile.html',{'brand_name': brand_name,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+    else:
+        return render(request,'app/mobile.html',{'brand_name': brand_name,})
 
 def TopWear(request):
     minvalue = request.GET.get('min-value')
     maxvalue = request.GET.get('max-value')
     if minvalue is None:
         product = Product.objects.filter(category="TW")
-        return render(request,'app/topwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        if request.user.is_authenticated:
+            return render(request,'app/topwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        else:
+             return render(request,'app/topwear.html',{'product':product,})
     else:
         product = Product.objects.filter(category="TW").filter(discount_price__gte=minvalue,discount_price__lte=maxvalue)
-        return render(request,'app/topwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        if request.user.is_authenticated:
+            return render(request,'app/topwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        else:
+            return render(request,'app/topwear.html',{'product':product,})
 
 
 
@@ -87,10 +95,16 @@ def BottomWear(request):
     maxvalue = request.GET.get('max-value')
     if minvalue is None:
         product = Product.objects.filter(category="BW")
-        return render(request,'app/bottomwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        if request.user.is_authenticated:
+            return render(request,'app/bottomwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        else:
+            return render(request,'app/bottomwear.html',{'product':product,})
     else:
         product = Product.objects.filter(category="BW").filter(discount_price__gte=minvalue,discount_price__lte=maxvalue)
-        return render(request,'app/bottomwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        if request.user.is_authenticated:
+            return render(request,'app/bottomwear.html',{'product':product,'cart_item_count':Cart.objects.filter(user=request.user).count()})
+        else:
+            return render(request,'app/bottomwear.html',{'product':product,})
 
 def profile(request):
     if request.method == "POST":
