@@ -6,27 +6,29 @@ Register
 {%block main%}
 
 <div class="login-from align-middle w-50 border rounded my-5 m-auto p-5 shadow">
-    <h1 class="text-dark fw-5">Customer Registration</h1>
-    <hr class="bg-secondary" style="height: 2px;">
-    <form action="{% url 'register' %}" method="POST">
-      {%csrf_token%}
-      {%for comp in fm%}
-        <div class="form-group my-2">
-            {{comp.label_tag}} {{comp}} <small class="text-danger">{{comp.errors|striptags}}</small>
-        </div>
-      {%endfor%}
-      <!-- {{fm.as_p}} -->
-      <input type="submit" value="Submit" class="btn btn-primary">
-      {% if messages %}
-      {%for message in messages%}
-        <small {% if message.tags%} class="text-white bg-{{message.tags}} align-middle w-100 p-2" {%endif%} style="text-align: center;">{{message}}</small>
-      {%endfor%}
-    {%endif%}
-    </form>
-    <div class="m-auto" style="text-align: center;">
-        <span class="text-primary fw-bold">Existing User?</span> <a href="{% url 'login' %}" class="text-danger fw-bold">Login Now</a>
+  <h1 class="text-dark fw-5">Customer Registration</h1>
+  <hr class="bg-secondary" style="height: 2px;">
+  <form action="{% url 'register' %}" method="POST">
+    {%csrf_token%}
+    {%for comp in fm%}
+    <div class="form-group my-2">
+      {{comp.label_tag}} {{comp}} <small class="text-danger">{{comp.errors|striptags}}</small>
     </div>
-    <!-- <h1 class="text-dark fw-5">Customer Registration</h1>
+    {%endfor%}
+    <!-- {{fm.as_p}} -->
+    <input type="submit" value="Submit" class="btn btn-primary">
+    {% if messages %}
+    {%for message in messages%}
+    <small {% if message.tags%} class="text-white bg-{{message.tags}} align-middle w-100 p-2" {%endif%}
+      style="text-align: center;">{{message}}</small>
+    {%endfor%}
+    {%endif%}
+  </form>
+  <div class="m-auto" style="text-align: center;">
+    <span class="text-primary fw-bold">Existing User?</span> <a href="{% url 'login' %}"
+      class="text-danger fw-bold">Login Now</a>
+  </div>
+  <!-- <h1 class="text-dark fw-5">Customer Registration</h1>
     <hr class="bg-secondary" style="height: 2px;">
     <form>
         <div class="mb-3">

@@ -15,8 +15,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-TEMPLATE_DIR = os.path.join(BASE_DIR,'template')
-STATIC_DIR = os.path.join(BASE_DIR,'static')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -110,13 +110,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ['app.settings.EmailBackend']
+AUTHENTICATION_BACKENDS = ['app.settings.EmailBackend',
+                           ]
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'webminda@gmail.com'
 EMAIL_HOST_PASSWORD = 'Ram@900123'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -138,16 +141,16 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 
-#URL for all media file in our project
+# URL for all media file in our project
 MEDIA_ROOT = BASE_DIR / 'media'
 
-#When Use Successfully logined that is will redirest to profile
+# When Use Successfully logined that is will redirest to profile
 LOGIN_REDIRECT_URL = '/profile/'
 
-#For password reset link changing email to console
+# For password reset link changing email to console
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
@@ -155,4 +158,3 @@ STATICFILES_DIRS=[
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
