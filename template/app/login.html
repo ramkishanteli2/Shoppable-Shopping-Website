@@ -10,27 +10,34 @@ Login
   <form action="{% url 'login' %}" method="POST" novalidate>
     {%csrf_token%}
     {%for comp in form%}
-      <div class="form-group my-2">
-          {{comp.label_tag}} {{comp}} <small class="text-danger">{{comp.errors|striptags}}</small>
-      </div>
+    <div class="form-group my-2">
+      {{comp.label_tag}} {{comp}} <small class="text-danger">{{comp.errors|striptags}}</small>
+    </div>
     {%endfor%}
     <!-- {{fm.as_p}} -->
     <a href="{% url 'password_reset' %}">Forgot Password?</a><br><br>
-    <input type="submit" value="Login" class="btn btn-primary">
-  <!-- {% if messages %}
+    <input type="submit" value="Login" class="btn btn-primary"><br><br>
+    <div class="mx-auto">
+      <a title="Google" class="socialaccount_provider google btn fw-bold fs-4 border w-100"
+        href="/accounts/google/login/?process=login">
+        <img src="{% static 'app/images/googleLogo.png' %}" alt="" height="30" width="30">
+        Sign in with Google</a>
+    </div>
+    <!-- {% if messages %}
     {%for message in messages%}
       <small {% if message.tags%} class="text-{{message.tags}}" {%endif%}>{{message}}</small>
     {%endfor%}
   {%endif%} -->
-  <div class="m-auto" style="text-align: center;">
-    <span class="text-primary fw-bold">New to Shopabble?</span> <a href="{%url 'register' %}" class="text-danger fw-bold">Create an Account</a>
-  </div>
-  {% if form.non_field_errors %}
+    <div class="m-auto" style="text-align: center;">
+      <span class="text-primary fw-bold">New to Shopabble?</span> <a href="{%url 'register' %}"
+        class="text-danger fw-bold">Create an Account</a>
+    </div>
+    {% if form.non_field_errors %}
     {% for error in form.non_field_errors %}
-      <p class="alert alert-danger m-3">{{error}}</p>
+    <p class="alert alert-danger m-3">{{error}}</p>
     {%endfor%}
-  {% endif %}
-</form>
+    {% endif %}
+  </form>
 </div>
 
 <!-- <div class="login-from align-middle w-50 border rounded my-5 m-auto p-5 shadow">
