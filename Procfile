@@ -1,1 +1,1 @@
-web: waitress-serve --port=&PORT shopabble.wsgi:application
+web: gunicorn shopabble.wsgi
