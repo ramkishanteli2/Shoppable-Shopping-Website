@@ -1,0 +1,102 @@
+{%extends 'app/base.html'%}
+
+{%block title%}
+Mobiles
+{%endblock title%}
+
+{%block main%}
+<div class="container m-5">
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action" id="list-home-list" href="{%url 'laptop' %}"
+                    role="tab" aria-controls="list-mobiles">Laptops</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list"
+                    href="{%url 'laptop' 'Lenovo' %}" role="tab" aria-controls="list-samsung">Lenovo</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list"
+                    href="{%url 'laptop' 'Apple' %}" role="tab" aria-controls="list-redmi">Apple</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                    href="{%url 'laptop' 'Asus' %}" role="tab" aria-controls="list-apple">Asus</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list" href="{%url 'laptop' 'HP' %}"
+                    role="tab" aria-controls="list-apple">HP</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                    href="{%url 'laptop' 'Dell' %}" role="tab" aria-controls="list-apple">Dell</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                    href="{%url 'laptop' 'below' %}" role="tab" aria-controls="list-apple">Below Rs. 70000</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                    href="{%url 'laptop' 'above' %}" role="tab" aria-controls="list-apple">Above Rs. 14000</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-mobiles" role="tabpanel"
+                    aria-labelledby="list-home-list">
+                    {%for b in brand_name %}
+                    <a href="{%url 'productdetails' b.id %}" class="btn">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{b.product_image.url}}" alt="" height="200px">
+                            <div class="card-body text-center">
+                                <span class="fw-bold">{{b.title}}</span><br>
+                                <span class="fs-5">Rs. {{b.discount_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {%endfor%}
+                </div>
+                <div class="tab-pane fade" id="list-samsung" role="tabpanel" aria-labelledby="list-profile-list">
+                    {%for b in brand_name %}
+                    <a href="{%url 'productdetails' b.id %}" class="btn">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{b.product_image.url}}" alt="" height="200px">
+                            <div class="card-body text-center">
+                                <span class="fw-bold">{{b.title}}</span><br>
+                                <span class="fs-5">Rs. {{b.discount_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {%endfor%}
+                </div>
+                <div class="tab-pane fade" id="list-redmi" role="tabpanel" aria-labelledby="list-messages-list">
+                    {%for b in brand_name %}
+                    <a href="{%url 'productdetails' b.id %}" class="btn">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{b.product_image.url}}" alt="" height="200px">
+                            <div class="card-body text-center">
+                                <span class="fw-bold">{{b.title}}</span><br>
+                                <span class="fs-5">Rs. {{b.discount_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {%endfor%}
+                </div>
+                <div class="tab-pane fade" id="list-apple" role="tabpanel" aria-labelledby="list-settings-list">
+                    {%for b in brand_name %}
+                    <a href="{%url 'productdetails' b.id %}" class="btn">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{b.product_image.url}}" alt="" height="200px">
+                            <div class="card-body text-center">
+                                <span class="fw-bold">{{b.title}}</span><br>
+                                <span class="fs-5">Rs. {{b.discount_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {%endfor%}
+                </div>
+                <div class="tab-pane fade" id="list-apple" role="tabpanel" aria-labelledby="list-settings-list">
+                    {%for b in brand_name %}
+                    <a href="{%url 'productdetails' b.id %}" class="btn">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{b.product_image.url}}" alt="" height="200px">
+                            <div class="card-body text-center">
+                                <span class="fw-bold">{{b.title}}</span><br>
+                                <span class="fs-5">Rs. {{b.discount_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main%}
