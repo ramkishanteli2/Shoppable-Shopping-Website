@@ -53,10 +53,11 @@ class ProductView(View):
         mobiles = Product.objects.filter(category="M")
         topwears = Product.objects.filter(category="TW")
         bottomwears = Product.objects.filter(category="BW")
+        groceryItems = Product.objects.filter(category="GI")
         if request.user.is_authenticated:
-            return render(request, 'app/index.html', {'mobiles': mobiles, 'topwears': topwears, 'bottomwears': bottomwears, 'cart_item_count': Cart.objects.filter(user=request.user).count()})
+            return render(request, 'app/index.html', {'mobiles': mobiles, 'topwears': topwears, 'bottomwears': bottomwears, 'groceryItems': groceryItems, 'cart_item_count': Cart.objects.filter(user=request.user).count()})
         else:
-            return render(request, 'app/index.html', {'mobiles': mobiles, 'topwears': topwears, 'bottomwears': bottomwears})
+            return render(request, 'app/index.html', {'mobiles': mobiles, 'topwears': topwears, 'bottomwears': bottomwears, 'groceryItems': groceryItems})
 
 
 def mobile(request, brand_name=None):
